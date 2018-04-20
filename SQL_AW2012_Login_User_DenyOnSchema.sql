@@ -1,5 +1,5 @@
 
-	
+	-- NEED OTHER PROCEDURE
 
 Use AdventureWorks2012;
 
@@ -67,9 +67,13 @@ CREATE PROC OrdersByName (
 				ON SOH.ShipToAddressID = A.AddressID
 				INNER JOIN Person.StateProvince St
 				ON A.StateProvinceID = St.StateProvinceID
-				WHERE C.CustomerID = @CustomerID
+				WHERE C.CustomerID = @CustomerID --AND PO IS NOT NULL? from select * from Sales.SalesOrderHeader
 		END
+		 GO
 
+		select * from  Sales.SalesOrderHeader
+
+	
 		--EXEC OrdersByName @CustomerID = 29747
 
 			--drop login AdvWorks2012
