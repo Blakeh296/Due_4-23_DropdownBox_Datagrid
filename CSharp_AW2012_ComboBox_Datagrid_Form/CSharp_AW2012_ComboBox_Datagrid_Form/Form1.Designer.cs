@@ -80,7 +80,6 @@
             this.btnPerform.TabIndex = 4;
             this.btnPerform.Text = "Update";
             this.btnPerform.UseVisualStyleBackColor = true;
-            this.btnPerform.Click += new System.EventHandler(this.btnPerform_Click);
             // 
             // textBox1
             // 

@@ -45,6 +45,7 @@ namespace CSharp_AW2012_ComboBox_Datagrid_Form
 
         public DataTable OrdersByName(int CustomerID)
         {
+
             DataTable dtOrdersByName = new DataTable();
 
             try
@@ -54,12 +55,41 @@ namespace CSharp_AW2012_ComboBox_Datagrid_Form
                     SqlCommand Source = new SqlCommand("OrdersByName", varSqlconnect);
                     Source.CommandType = CommandType.StoredProcedure;
 
-                    Source.Parameters.AddWithValue("@CustomerID", CustomerID);
 
                     // Define Adapter, "dbo.ActiveContactList" is stored procedure
                     SqlDataAdapter sqlDA = new SqlDataAdapter(Source);
                     // Fill DataTable with storedProcedure results
                     sqlDA.Fill(dtOrdersByName);
+                }
+                else
+                {
+                    throw new Exception("Could not find Stored Procedure");
+                }
+            
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return dtOrdersByName;
+        }
+
+        public DataTable CustomerList()
+        {
+            DataTable dtCustomerList = new DataTable();
+
+            try
+            {
+                if (DBConnect())
+                {
+                    SqlCommand Source = new SqlCommand("CustomerList", varSqlconnect);
+                    Source.CommandType = CommandType.StoredProcedure;
+                    // Define Adapter, "dbo.ActiveContactList" is stored procedure
+                    SqlDataAdapter sqlDA = new SqlDataAdapter(Source);
+                    // Fill DataTable with storedProcedure results
+                    sqlDA.Fill(dtCustomerList);
                 }
                 else
                 {
@@ -72,7 +102,7 @@ namespace CSharp_AW2012_ComboBox_Datagrid_Form
                 throw;
             }
 
-            return dtOrdersByName;
+            return dtCustomerList;
         }
     }
 }

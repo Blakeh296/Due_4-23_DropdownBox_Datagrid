@@ -51,7 +51,7 @@ DENY UPDATE ON SCHEMA ::
 
 										-- CREATE PROC --
 
-CREATE PROC OrdersByName (
+ALTER PROC OrdersByName (
 							 @CustomerID int
 										)
 	AS
@@ -71,10 +71,19 @@ CREATE PROC OrdersByName (
 		END
 		 GO
 
+ALTER PROC CustomerList
+AS
+	BEGIN
+			SELECT C.CustomerID, P.LastName + ', ' + P.FirstName [Lname_Fname] FROM Sales.Customer C
+			INNER JOIN Person.Person P
+			ON C.CustomerID = P.BusinessEntityID
+
+	END
+
 		select * from  Sales.SalesOrderHeader
 
 	
-		--EXEC OrdersByName @CustomerID = 29747
+		EXEC OrdersByName @CustomerID = 30030
 
 			--drop login AdvWorks2012
 
