@@ -48,42 +48,46 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 39);
+            this.dataGridView1.Location = new System.Drawing.Point(16, 39);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(485, 290);
+            this.dataGridView1.Size = new System.Drawing.Size(672, 166);
             this.dataGridView1.TabIndex = 1;
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(422, 335);
+            this.btnExit.Location = new System.Drawing.Point(613, 211);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 23);
             this.btnExit.TabIndex = 2;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // lblOutput
             // 
-            this.lblOutput.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblOutput.Location = new System.Drawing.Point(383, 9);
+            this.lblOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOutput.Location = new System.Drawing.Point(496, 10);
             this.lblOutput.Name = "lblOutput";
-            this.lblOutput.Size = new System.Drawing.Size(113, 23);
+            this.lblOutput.Size = new System.Drawing.Size(86, 23);
             this.lblOutput.TabIndex = 3;
+            this.lblOutput.Text = "CustomerID :";
             this.lblOutput.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnPerform
             // 
-            this.btnPerform.Location = new System.Drawing.Point(317, 334);
+            this.btnPerform.Location = new System.Drawing.Point(532, 211);
             this.btnPerform.Name = "btnPerform";
             this.btnPerform.Size = new System.Drawing.Size(75, 23);
             this.btnPerform.TabIndex = 4;
             this.btnPerform.Text = "Update";
             this.btnPerform.UseVisualStyleBackColor = true;
+            this.btnPerform.Click += new System.EventHandler(this.btnPerform_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(277, 11);
+            this.textBox1.Location = new System.Drawing.Point(588, 12);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 5;
@@ -92,7 +96,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(508, 367);
+            this.ClientSize = new System.Drawing.Size(701, 246);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnPerform);
             this.Controls.Add(this.lblOutput);
@@ -100,7 +104,7 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cbActiveCustomers);
             this.Name = "DataLookup";
-            this.Text = "Form1";
+            this.Text = "Orders Per Customer";
             this.Load += new System.EventHandler(this.DataLookup_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

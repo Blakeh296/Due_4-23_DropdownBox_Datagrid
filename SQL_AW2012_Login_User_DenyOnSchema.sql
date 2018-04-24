@@ -51,27 +51,27 @@ DENY UPDATE ON SCHEMA ::
 
 										-- CREATE PROC --
 
-ALTER PROC OrdersByName (
-							 @CustomerID int
-										)
-	AS
-		BEGIN
-				SELECT SOH.SalesOrderID, SOH.TotalDue, SOH.OrderDate, SOH.ShipDate
-				, SP.LastName + ', ' + SP.FirstName [Sales Person], A.City, St.Name 
-				FROM Sales.Customer C
-				INNER JOIN Sales.SalesOrderHeader SOH
-				ON C.CustomerID = SOH.CustomerID
-				INNER JOIN Person.Person SP
-				ON SOH.SalesPersonID = SP.BusinessEntityID
-				INNER JOIN Person.[Address] A
-				ON SOH.ShipToAddressID = A.AddressID
-				INNER JOIN Person.StateProvince St
-				ON A.StateProvinceID = St.StateProvinceID
-				WHERE C.CustomerID = @CustomerID --AND PO IS NOT NULL? from select * from Sales.SalesOrderHeader
-		END
-		 GO
+Create procedure sp_CustomerSales
+(
+@CustID int
+)
+as
+Select	soh.SalesOrderID, soh.OrderDate, soh.ShipDate,CONCAT(p.FirstName,' ', p.LastName)[Sales Person],a.City,psp.Name[State], soh.TotalDue
+From	sales.SalesOrderHeader soh
+Inner join sales.Customer c
+on		c.CustomerID = soh.CustomerID
+inner join sales.SalesPerson sp
+on		sp.TerritoryID = soh.TerritoryID
+inner join person.Person p
+on		p.BusinessEntityID = sp.BusinessEntityID
+inner join person.Address a
+on		a.AddressID = soh.ShipToAddressID
+inner join person.StateProvince psp
+on		psp.StateProvinceID = a.StateProvinceID
+Where	c.CustomerID = @CustID;
+go 
 
-ALTER PROC CustomerList
+CREATE PROC CustomerList
 AS
 	BEGIN
 			SELECT C.CustomerID, P.LastName + ', ' + P.FirstName [Lname_Fname] FROM Sales.Customer C

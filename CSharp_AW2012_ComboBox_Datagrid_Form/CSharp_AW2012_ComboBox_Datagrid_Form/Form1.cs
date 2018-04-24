@@ -14,7 +14,7 @@ namespace CSharp_AW2012_ComboBox_Datagrid_Form
 {
     public partial class DataLookup : Form
     {
-        const string connString = "Server=PL11\\MTCDEVDB;Database=AdventureWorks2012;Trusted_Connection=True;";
+        const string connString = @"Server=PL11\MTCDEVDB;Database=AdventureWorks2012;Trusted_Connection=True;";
         SqlConnection sqlConn = new SqlConnection(connString);
 
 
@@ -65,17 +65,20 @@ namespace CSharp_AW2012_ComboBox_Datagrid_Form
             {
                // dataGridView1.DataSource = GivMe.OrdersByName(CustomerID);
 
-                SqlCommand sqlComm = new SqlCommand("OrdersByName", sqlConn);
+                SqlCommand sqlComm = new SqlCommand("sp_CustomerSales", sqlConn);
                 sqlComm.CommandType = CommandType.StoredProcedure;
 
-                SqlParameter prmCustomerID = new SqlParameter("@CustomerID", CustomerID);
+                SqlParameter prmCustomerID = new SqlParameter("@CustID", CustomerID);
                 sqlComm.Parameters.Add(prmCustomerID);
 
                 SqlDataAdapter sqlDa = new SqlDataAdapter(sqlComm);
 
                 sqlDa.Fill(dtOrders);
 
+                textBox1.Text = CustomerID.ToString();
+
                 dataGridView1.DataSource = dtOrders;
+
             }
             catch (Exception ex)
             {
@@ -112,6 +115,43 @@ namespace CSharp_AW2012_ComboBox_Datagrid_Form
             {
                 return this.CustomerName;
             }
+        }
+
+
+        private void btnPerform_Click(object sender, EventArgs e)
+        {
+            DataTable dtUpdate = new DataTable();
+
+            int CustomerID = int.Parse(textBox1.Text);
+
+
+            try
+            {
+                SqlCommand sqlComm = new SqlCommand("sp_CustomerSales", sqlConn);
+                sqlComm.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter prmCustomerID = new SqlParameter("@CustID", CustomerID);
+                sqlComm.Parameters.Add(prmCustomerID);
+
+                SqlDataAdapter sqlDa = new SqlDataAdapter(sqlComm);
+
+                sqlDa.Fill(dtUpdate);
+
+                textBox1.Text = CustomerID.ToString();
+
+                dataGridView1.DataSource = dtUpdate;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
